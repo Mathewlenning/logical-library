@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comRelease" default="init" basedir="../../">
+    <import file="${project.basedir}/extension-gen/shared/releaseUtility.xml"/>
+    <property name="task" value="comRelease"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <input message="Build Type" propertyName="build_type" validArgs="ma,mi,b,none" defaultValue="b"/>
+
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+        <property name="siteDir" value="${baseDir}/components/com_${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+
+        <echo message="Updating Manifest Version and files"/>
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${build_type}" outputProperty="version"/>
+        <echo message="Building ${version}"/>
+
+        <phingcall target="createTempDir"/>
+
+        <phingcall target="copySrc">
+            <property name="srcDir" value="${baseDir}"/>
+        </phingcall>
+
+        <phingcall target="copyDependencies"/>
+
+        <phingcall target="createPackage">
+            <property name="releaseDir" value="${project.basedir}/releases/component/${componentName}"/>
+            <property name="packageName" value="com_${componentName}-ver-${version}.zip"/>
+        </phingcall>
+
+        <phingcall target="cleanup"/>
+    </target>
+
+    <target name="copyDependencies">
+        <echo message="Loading ${tmpDir}/${componentName}.xml"/>
+        <xmlproperty file="${tmpDir}/${componentName}.xml" collapseAttributes="true"/>
+        <if>
+            <isset property="extension.dependencies.file"/>
+            <then>
+                <echo >
+                    Release scripts ${extension.dependencies.file.preflight}
+                </echo>
+                <echo message="Making ${tmpDir}/${extension.dependencies.folder}"/>
+                <mkdir dir="${tmpDir}/${extension.dependencies.folder}"/>
+                <foreach list="${extension.dependencies.file}" param="dependency" target="copyDependency"/>
+            </then>
+            <else>
+                <echo >
+                    No dependencies found
+                </echo>
+            </else>
+        </if>
+    </target>
+
+    <target name="copyDependency">
+        <property name="depDir" value="${tmpDir}/${extension.dependencies.folder}/${dependency}"/>
+
+        <if>
+            <available file="${depDir}" type="dir"/>
+            <then/>
+            <else>
+                <echo msg="Making directory at ${depDir}"/>
+                <mkdir dir="${depDir}"/>
+            </else>
+        </if>
+
+        <phingcall target="copySrc">
+            <property name="tmpDir" value="${depDir}"/>
+            <property name="srcDir" value="${project.basedir}/${dependency}"/>
+        </phingcall>
+    </target>
+</project>

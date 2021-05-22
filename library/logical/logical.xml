@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="library" version="3.0" method="upgrade">
+  <name>LOGICAL</name>
+  <libraryname>Logical</libraryname>
+  <creationDate>2019-01-29</creationDate>
+  <copyright>Copyright (C) 2015 All rights reserved.</copyright>
+  <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+  <author>Mathew Lenning</author>
+  <authorEmail>mathew.lenning@gmail.com</authorEmail>
+  <authorUrl>http://mathewlenning.com</authorUrl>
+  <version>0.0.345</version>
+  <description>Logical Library</description>
+  <files folder="libraries/Logical">
+    <folder>Access</folder>
+    <folder>Application</folder>
+    <folder>Controller</folder>
+    <folder>Event</folder>
+    <folder>Html</folder>
+    <folder>Install</folder>
+    <folder>Language</folder>
+    <folder>Mail</folder>
+    <folder>Model</folder>
+    <folder>Oauth</folder>
+    <folder>Observable</folder>
+    <folder>Observer</folder>
+    <folder>Plugin</folder>
+    <folder>Registry</folder>
+    <folder>Table</folder>
+    <folder>Utility</folder>
+    <folder>Vendor</folder>
+    <folder>Version</folder>
+    <folder>View</folder>
+    <folder>Widget</folder>
+  </files>
+  <media destination="logical" folder="media/logical">
+    <folder>css</folder>
+    <folder>image</folder>
+    <folder>js</folder>
+    <folder>widget</folder>
+  </media>
+  <languages>
+    <language tag="en-GB">language/en-GB/en-GB.logical.ini</language>
+  </languages>
+</extension>

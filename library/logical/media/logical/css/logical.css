@@ -1,0 +1,189 @@
+.js-isModal
+{
+    margin:10px;
+}
+
+.js-reorderList > li.sorting-header
+{
+    background-color: #eee;
+    font-weight: bolder;
+}
+
+.js-reorderList > li
+{
+    line-height:18px;
+    display: block;
+    padding:6px 6px;
+    margin-bottom: 3px;
+    border: 1px solid #999999;
+}
+
+.js-reorderList > li > a
+{
+    display: inline;
+}
+
+.js-reorderList > li:before
+{
+    font-family: 'IcoMoon';
+    font-style: normal;
+    font-weight: normal;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    content: "\7a"
+}
+
+.PUBLISHED, .DRAFT, .ARCHIVED
+{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: .3em;
+    line-height: 14px;
+}
+
+.PUBLISHED:before ,.DRAFT:before, .ARCHIVED:before
+{
+    font-family: 'IcoMoon';
+    font-style: normal;
+    speak: none;
+}
+
+.PUBLISHED.disabled, .DRAFT.disabled, .ARCHIVED.disabled
+{
+    font-weight: normal;
+}
+
+.PUBLISHED:before
+{
+    content: "\47";
+    color: #51a351;
+}
+
+.DRAFT:before
+{
+    content: "\4a";
+    color: #bd362f;
+}
+
+.ARCHIVED:before
+{
+    content: "\50";
+}
+
+.btn-toolbar .btn-wrapper {
+    display: inline-block;
+    margin: 0 0 5px 5px;
+}
+
+.logical-inline-textarea-200
+{
+    display: block;
+    width: 100%;
+    min-height: 200px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body
+{
+    overflow:hidden;
+}
+
+.logical-offscreen-container
+{
+    position: fixed;
+    left: 0;
+    right:0;
+    top: 0;
+    bottom:0;
+    z-index: 1041;
+    background-color: #fff;
+}
+
+.logical-offscreen-container .logical-offscreen-header
+{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    padding:10px 0 10px 10px;
+    z-index: 1042;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.logical-offscreen-container .logical-offscreen-footer
+{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right:0;
+    z-index: 1042;
+    background-color: #eee;
+    border-top: 1px solid #ccc;
+    padding:10px;
+}
+
+.logical-offscreen-container .logical-offscreen-body
+{
+    overflow-y: scroll;
+    height: 90%;
+    width: 100%;
+    left:0;
+    right: 0;
+    padding-top: 75px;
+}
+
+.logical-offscreen-container.logical-offscreen-left,
+.logical-offscreen-container.logical-offscreen-left .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-left .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-left .logical-offscreen-body
+{
+    transition: left 0.75s ease-in-out, right 0.75s ease-in-out;
+}
+
+.logical-offscreen-container.logical-offscreen-right,
+.logical-offscreen-container.logical-offscreen-right .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-right .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-right .logical-offscreen-body
+{
+    transition: left 0.75s ease-in-out, right 0.75s ease-in-out;
+}
+
+.logical-offscreen-container.logical-offscreen-top,
+.logical-offscreen-container.logical-offscreen-top .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-top .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-top .logical-offscreen-body
+{
+    transition: top 0.75s ease-in-out, bottom 0.75s ease-in-out;
+}
+
+.logical-offscreen-container.logical-offscreen-left.logical-offscreen-hidden,
+.logical-offscreen-container.logical-offscreen-left.logical-offscreen-hidden .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-left.logical-offscreen-hidden .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-left.logical-offscreen-hidden .logical-offscreen-body
+{
+    left:-200%;
+    right: 200%;
+}
+
+.logical-offscreen-container.logical-offscreen-right.logical-offscreen-hidden,
+.logical-offscreen-container.logical-offscreen-right.logical-offscreen-hidden .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-right.logical-offscreen-hidden .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-right.logical-offscreen-hidden .logical-offscreen-body
+{
+    right:-200%;
+    left:200%;
+}
+
+.logical-offscreen-container.logical-offscreen-top.logical-offscreen-hidden,
+.logical-offscreen-container.logical-offscreen-top.logical-offscreen-hidden .logical-offscreen-header,
+.logical-offscreen-container.logical-offscreen-top.logical-offscreen-hidden .logical-offscreen-footer,
+.logical-offscreen-container.logical-offscreen-top.logical-offscreen-hidden .logical-offscreen-body
+{
+    top:-200%;
+    bottom: 200%;
+}

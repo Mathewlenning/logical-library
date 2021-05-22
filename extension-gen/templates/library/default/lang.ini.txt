@@ -1,0 +1,6 @@
+; Package   %LibName%
+; License   GNU General Public License version 2 or later; see LICENSE.txt, see LICENSE.php
+
+[EXTENSION]
+%LIB_NAME% = "%libName%"
+%LIB_NAME%_DESC = "%libName%"

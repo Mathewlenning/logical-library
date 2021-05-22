@@ -1,0 +1,92 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class Plg%PlgType%%PlgName%
+ *
+ * @since  0.0.1
+ */
+class Plg%PlgType%%PlgName% extends JPlugin
+{
+	/**
+	 * Initialises the Editor.
+	 *
+	 * @return  void
+	 */
+	public function onInit()
+	{
+	}
+
+	/**
+	 * Copy editor content to form field.
+	 *
+	 * @param   string  $id  The id of the editor field.
+	 *
+	 * @return  string  Javascript
+	 */
+	public function onSave($id)
+	{
+	}
+
+	/**
+	 * Set the editor content.
+	 *
+	 * @param   string  $id       The id of the editor field.
+	 * @param   string  $content  The content to set.
+	 *
+	 * @return  string  Javascript
+	 */
+	public function onSetContent($id, $content)
+	{
+	}
+
+	/**
+	 * Display the editor area.
+	 *
+	 * @param   string   $name     The control name.
+	 * @param   string   $content  The contents of the text area.
+	 * @param   string   $width    The width of the text area (px or %).
+	 * @param   string   $height   The height of the text area (px or %).
+	 * @param   int      $col      The number of columns for the textarea.
+	 * @param   int      $row      The number of rows for the textarea.
+	 * @param   boolean  $buttons  True and the editor buttons will be displayed.
+	 * @param   string   $id       An optional ID for the textarea (note: since 1.6). If not supplied the name is used.
+	 * @param   string   $asset    Not used.
+	 * @param   object   $author   Not used.
+	 * @param   array    $params   Associative array of editor parameters.
+	 *
+	 * @return  string  HTML
+	 */
+	public function onDisplay(
+		$name, $content, $width, $height, $col, $row, $buttons = true, $id = null, $asset = null, $author = null, $params = array())
+	{
+	}
+
+	/**
+	 * Get the editor content.
+	 *
+	 * @param   string  $id  The id of the editor field.
+	 *
+	 * @return  string  Javascript
+	 */
+	public function onGetContent($id)
+	{
+	}
+
+	/**
+	 * Adds the editor specific insert method.
+	 *
+	 * @return  boolean
+	 */
+	public function onGetInsertMethod()
+	{
+	}
+}

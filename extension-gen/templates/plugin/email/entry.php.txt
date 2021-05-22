@@ -1,0 +1,108 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Plugin\CMSPlugin AS JPlugin;
+
+/**
+ * Class Plg%PlgType%%PlgName%
+ *
+ * @since  0.0.1
+ */
+class Plg%PlgType%%PlgName% extends JPlugin
+{
+
+	/**
+	 * Method to register custom library.
+	 *
+	 * @return  void
+	 * @throws Exception
+	 */
+	public function onAfterInitialise()
+	{
+		$this->app = JFactory::getApplication();
+		$this->loadLanguage();
+	}
+
+	/**
+	 * Method to get an array of search/replace values
+	 *
+	 * @return  array
+	 */
+	protected function getSearchReplace()
+	{
+			$search = array();
+    		$search[] = '%site_name%';
+    		$search[] = '%site_url%';
+
+    		$replace = array();
+    		$replace[] = $this->app->get('sitename');
+    		$replace[] = str_replace('/administrator/', '/', JUri::base());
+
+    		return array('search' => $search, 'replace' => $replace);
+	}
+
+	/**
+	 * Method to get message subject
+     *
+     * @return  string
+     */
+	protected function getSubject($search, $replace)
+	{
+		return str_replace(
+			$search,
+			$replace,
+			$this->params->get(
+				'subject',
+				JText::_('PLG_%PLG_TYPE%_%PLG_NAME%_DEFAULT_SUBJECT')
+			)
+		);
+	}
+
+	/**
+	 * Method to get message body
+     *
+     * @return  string
+     */
+	protected function getBody($search, $replace)
+	{
+		return str_replace(
+			$search,
+			$replace,
+			$this->params->get(
+				'body',
+				JText::_('PLG_%PLG_TYPE%_%PLG_NAME%_DEFAULT_BODY')
+			)
+		);
+	}
+
+	/**
+	 * Method to send an email notification
+	 *
+	 * @param array  $toAddress     One or more Recipient's address
+	 * @param string  $subject      subject line
+	 * @param string  $message      notification body
+	 * @param string  $fromAddress  Senders address
+     * @param string  $fromName     Senders name
+	 */
+	protected function sendMail($toAddress, $subject, $message, $fromAddress = null, $fromName = null)
+	{
+
+		$fromAddress = (empty($fromAddress)) ? $this->params->get('from_email', $this->app->get('mailfrom')) : $fromAddress;
+		$fromName = (empty($fromName)) ? $this->params->get('from_name', $this->app->get('fromname')) : $fromName;
+
+		$mailer = JFactory::getMailer();
+
+		foreach($toAddress AS $address)
+		{
+			$mailer->sendMail($fromAddress, $fromName, $address, $subject, $message, true);
+		}
+	}
+}

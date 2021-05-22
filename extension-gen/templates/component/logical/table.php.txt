@@ -1,0 +1,33 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+use Logical\Registry\Registry;
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class %ComponentName%Table%ModelName%
+ *
+ * @package  %ComponentName%
+ * @since    %version%
+ */
+class %ComponentName%Table%ModelName% extends Logical\Table\Table
+{
+	/**
+	 * Constructor
+	 *
+	 * @param   Registry  $config  configuration
+	 */
+	public function __construct(Registry $config)
+	{
+		parent::__construct($config);
+
+		$this->primaryKey = '%primary_key%';
+	}
+}

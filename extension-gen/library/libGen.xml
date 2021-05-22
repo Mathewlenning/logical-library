@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="libGen" default="init" basedir="../../">
+    <property name="task" value="libGen"/>
+    <property name="builder" value="${project.basedir}/extension-gen/library/libBuilder.php"/>
+
+    <target name="init">
+        <input message="Library Name" propertyName="libName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="default"/>
+
+        <property name="baseDir" value="${project.basedir}/library/${libName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/library/${tmpl}"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${libName}" outputProperty="result"/>
+        <echo msg="${result}"/>
+    </target>
+</project>

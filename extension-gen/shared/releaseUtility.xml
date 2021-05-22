@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="releaseUtility" basedir="." default="createTempDir">
+
+    <property name="tmpDir" value=".tmp" override="true"/>
+
+    <target name="createTempDir">
+        <if>
+            <available file="${tmpDir}" type="dir"/>
+            <then>
+                <echo msg="Removing old ${tmpDir}"/>
+                <delete dir="${tmpDir}"/>
+            </then>
+        </if>
+
+        <echo msg="Making directory to store the temporary packages at ${tmpDir}"/>
+        <mkdir dir="${tmpDir}"/>
+    </target>
+
+    <target name="copySrc">
+        <echo>Copying Files to TmpDir Directory from ${srcDir}</echo>
+        <copy todir="${tmpDir}">
+            <fileset dir="${srcDir}">
+                <include name="**/**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="createPackage">
+        <if>
+            <available file="${releaseDir}" type="dir"/>
+            <then/>
+            <else>
+                <echo msg="Making release directory at ${releaseDir}"/>
+                <mkdir dir="${releaseDir}"/>
+            </else>
+        </if>
+
+        <echo>Creating Package File</echo>
+        <zip destfile="${releaseDir}/${packageName}">
+            <fileset dir="${tmpDir}">
+                <include name="**/**" />
+            </fileset>
+        </zip>
+    </target>
+
+    <target name="cleanup">
+        <echo msg="Removing old ${tmpDir}"/>
+        <if>
+            <available file="${tmpDir}" type="dir"/>
+            <then>
+                <echo msg="Removing old ${tmpDir}"/>
+                <delete dir="${tmpDir}"/>
+            </then>
+        </if>
+    </target>
+</project>

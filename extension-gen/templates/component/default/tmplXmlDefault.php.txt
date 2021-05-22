@@ -1,0 +1,35 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/** @var SimpleXMLElement $xml */
+$xml = $this->getXmlElement('records');
+/** @var Logical\Registry\Registry $params */
+$params = $this->getParams();
+$items = $this->items;
+
+foreach ($items AS $item)
+{
+	$record = $xml->addChild('record');
+
+	foreach ($item AS $name => $value)
+	{
+		if ($this->isCDATA($name))
+		{
+			$this->createCdataSection($record, $name, trim($value));
+
+			continue;
+		}
+
+		$record->addChild($name, htmlentities(trim($value), ENT_COMPAT, 'UTF-8', false));
+	}
+}
+
+echo $xml->asXML();

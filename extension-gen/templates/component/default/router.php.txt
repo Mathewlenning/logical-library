@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Method to build the route segments array.
+ *
+ * Presented order is option, view, id, task
+ *
+ * @param   array  &$query  the query
+ *
+ * @return multitype:mixed
+ */
+function %ComponentName%BuildRoute(&$query)
+{
+	$router = new Logical\Application\Router;
+	$segments = $router->BuildRoute($query);
+
+	return $segments;
+}
+
+/**
+ * Method to parse a route into an associative query array
+ *
+ * @param   array  $segments  array of route segments
+ *
+ * @return array
+ */
+function %ComponentName%ParseRoute($segments)
+{
+	$router = new Logical\Application\Router;
+	$query = $router->ParseRoute($segments);
+
+	return $query;
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="referrer">
+		<field name="referrer_name" type="text" hiddenLabel="true" class="input-block-level" required="true" hint="PLG_%PLG_TYPE%_%PLG_NAME%_REFERRER_NAME" />
+		<field name="referrer_email" type="email" hiddenLabel="true" class="input-block-level" required="true" hint="PLG_%PLG_TYPE%_%PLG_NAME%_REFERRER_EMAIL"/>
+	</fieldset>
+</form>

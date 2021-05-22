@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddView" default="init" basedir="../../">
+
+    <property name="task" value="comAddView"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+
+        <phingcall target="createView"/>
+    </target>
+
+    <target name="continue">
+        <input message="Do you want to make another view?" propertyName="makeAnother" validArgs="Y,N"/>
+
+        <if>
+            <equals arg1="${makeAnother}" arg2="y" trim="true" casesensitive="false"/>
+            <then>
+                <phingcall target="createView"/>
+            </then>
+            <else>
+            </else>
+        </if>
+    </target>
+
+    <target name="createView">
+        <input message="View Name" propertyName="viewName"/>
+        <input message="Formats" propertyName="formats" defaultValue="html,xml,csv"/>
+        <input message="Add Sidebar Link?" propertyName="addSidebar" validArgs="Y,N"/>
+
+        <input message="Model Type : data, collection, record " propertyName="modelType" />
+        <input message="Create Form?" propertyName="createForm" validArgs="Y,N"/>
+        <input message="Create Table?" propertyName="createTable" validArgs="Y,N"/>
+        <input message="What part of the application" propertyName="app" validArgs="admin,site" defaultValue="admin"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${viewName} ${formats} ${addSidebar} ${modelType} ${createForm} ${createTable} ${app}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+
+        <phingcall target="continue"/>
+    </target>
+</project>

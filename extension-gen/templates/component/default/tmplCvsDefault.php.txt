@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$headers = $this->getHeaders();
+
+echo implode(',', $headers) . PHP_EOL;
+
+/** @var Logical\Registry\Registry $item */
+foreach ($this->items AS $item)
+{
+	$itemArray = $this->cleanCsv($item->toArray(), $headers);
+	echo implode(',', $itemArray) . PHP_EOL;
+}

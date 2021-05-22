@@ -1,0 +1,75 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$document = JFactory::getDocument();
+$document->addStylesheet(JUri::root(true) . '/media/logical/css/admin_shiv.css', 'text/css');
+$document->addScript(JUri::root(true) . '/media/logical/js/logical.js');
+
+$toolbar = $this->toolbar->render();
+$dataGrid = $this->loadTemplate('data_table');
+
+/** @var Logical\Widget\WidgetRenderer $renderer */
+$renderer = $this->getWidgetRenderer();
+$tabSet = new Logical\Html\Tabs($renderer);
+
+$tabSet->addTab('filterTab', JText::_('LOGICAL_LBL_FILTERS'), $this->searchField, true);
+$tabSet->addTab('exportTab', JText::_('LOGICAL_ACTION_EXPORT'), $renderer->render('logical.export.form', array('action' => $this->formUrl)));
+$tabSet->addTab('importTab', JText::_('LOGICAL_ACTION_IMPORT'), $renderer->render('logical.import.form', array('action' => $this->formUrl)));
+
+$tabs = $tabSet->render();
+$sidebar = $this->renderHMVC('com_%component_name%', 'shared', 'sidebar');
+
+$updateVersion = static::$version->checkForUpdate();
+?>
+<?php if(!empty($updateVersion)):?>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="alert alert-danger center well-small">
+			<span class="lead">New version Available</span> -
+			 Please upgrade to <strong><?php echo  static::$version->getName();?></strong> <span class="label label-success"><?php echo $updateVersion->version;?></span> to get the latest security and stability updates.
+		</div>
+	</div>
+</div>
+<?php endif;?>
+<div class="row-fluid">
+	<div class="span2">
+		<div class="row-fluid">
+			<div class="span12">
+				<?php echo $sidebar;?>
+			</div>
+		</div>
+		<hr/>
+		<?php echo $tabs;?>
+		<div class="row-fluid">
+        	<div class="span12">
+        		<p class="text-center"><small><?php echo  static::$version->getName();?> <?php echo  static::$version->getVersion();?></small></p>
+        	</div>
+        </div>
+	</div>
+	<div class="span10">
+		<form action="<?php echo JRoute::_($this->formUrl);?>" method="post">
+			<?php if (!empty($toolbar)):?>
+				<div class="row-fluid">
+					<div class="span12">
+						<?php echo $toolbar;?>
+					</div>
+				</div>
+			<?php endif;?>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php echo $dataGrid;?>
+				</div>
+			</div>
+			<input type="hidden" name="task" value="">
+			<?php echo JHtmlForm::token();?>
+		</form>
+	</div>
+</div>

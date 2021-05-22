@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="libRelease" default="init" basedir="../../">
+    <import file="${project.basedir}/extension-gen/shared/releaseUtility.xml"/>
+    <property name="task" value="libRelease"/>
+    <property name="builder" value="${project.basedir}/extension-gen/library/libBuilder.php"/>
+    <target name="init">
+        <input message="Library Name" propertyName="libName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="default"/>
+        <input message="Build Type" propertyName="build_type" validArgs="ma,mi,b,none" defaultValue="b"/>
+
+        <property name="baseDir" value="${project.basedir}/library/${libName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/library/${tmpl}"/>
+
+        <echo message="Updating Manifest"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${libName} ${build_type}" outputProperty="version"/>
+        <echo message="Building ${version}"/>
+
+        <phingcall target="createTempDir"/>
+
+        <phingcall target="copySrc">
+            <property name="srcDir" value="${baseDir}"/>
+        </phingcall>
+
+        <phingcall target="createPackage">
+            <property name="releaseDir" value="${project.basedir}/releases/library/${libName}"/>
+            <property name="packageName" value="lib_${libName}-ver-${version}.zip"/>
+        </phingcall>
+
+        <phingcall target="cleanup"/>
+    </target>
+</project>

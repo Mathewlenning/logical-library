@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$libLocation = JPATH_LIBRARIES;
+
+if(file_exists(__DIR__ .'/dependencies/logical-library/library/logical/libraries'))
+{
+	$libLocation = __DIR__ .'/dependencies/logical-library/library/logical/libraries';
+}
+
+// Register our name space with the autoloader
+JLoader::registerNamespace('Logical', $libLocation, true);
+
+class com_%component_name%InstallerScript extends Logical\Install\ComponentScript
+{
+}

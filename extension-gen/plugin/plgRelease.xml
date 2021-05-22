@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="plg_release" default="init" basedir="../../">
+    <import file="${project.basedir}/extension-gen/shared/releaseUtility.xml"/>
+    <property name="task" value="plgRelease"/>
+    <property name="builder" value="${project.basedir}/extension-gen/plugin/plgBuilder.php"/>
+
+    <target name="init">
+        <input message="Plugin Name" propertyName="plgName"/>
+        <input message="Plugin Type" propertyName="plgType"/>
+        <input message="Template" propertyName="tmpl" defaultValue="${plgType}"/>
+        <input message="Build Type" propertyName="buildType" validArgs="ma,mi,b,none" defaultValue="b"/>
+
+        <property name="baseDir" value="${project.basedir}/plugin/${plgType}/${plgName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/plugin/${tmpl}"/>
+
+        <echo message="Updating Manifest Version and files"/>
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${plgName} ${plgType} ${buildType}" outputProperty="version"/>
+        <echo message="Building ${version}"/>
+
+        <phingcall target="createTempDir"/>
+
+        <phingcall target="copySrc">
+            <property name="srcDir" value="${baseDir}"/>
+        </phingcall>
+
+        <phingcall target="createPackage">
+            <property name="releaseDir" value="${project.basedir}/releases/plugin/${plgType}/${plgName}"/>
+            <property name="packageName" value="plg_${plgType}_${plgName}-ver-${version}.zip"/>
+        </phingcall>
+
+        <phingcall target="cleanup"/>
+    </target>
+</project>

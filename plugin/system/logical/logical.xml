@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.2" type="plugin" group="system" method="upgrade">
+  <name>PLG_SYSTEM_LOGICAL</name>
+  <author>Mathew Lenning</author>
+  <creationDate>2016-08-26</creationDate>
+  <copyright>Copyright (C) 2015 - 2015 Mathew Lenning. All rights reserved.</copyright>
+  <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+  <authorEmail>mathew.lenning@gmail.com</authorEmail>
+  <authorUrl>http://mathewlenning.com/</authorUrl>
+  <version>0.0.14</version>
+  <description>Logical system plugin is responsible for integration the Logical CMS library into the application.</description>
+  <scriptfile>installscript.php</scriptfile>
+  <files>
+    <folder>language</folder>
+    <filename>installscript.php</filename>
+    <filename plugin="logical">logical.php</filename>
+    <filename>logical.xml</filename>
+  </files>
+  <config>
+    <fields name="params">
+      <fieldset name="LOGICAL_CONFIG">
+        <field name="use_rest" type="list" size="1" default="NO" label="LOGICAL_LBL_USE_REST" description="LOGICAL_DESC_USE_REST">
+          <option value="YES">LOGICAL_YES</option>
+          <option value="NO">LOGICAL_NO</option>
+        </field>
+        <field name="widget_template_dir" type="text" default="media/logical/widget" label="LOGICAL_LBL_WIDGET_TEMPLATE_DIR" description="LOGICAL_DESC_WIDGET_TEMPLATE_DIR"/>
+        <field name="widget_template" type="list" size="1" default="bootstrap-v2.xml" label="LOGICAL_LBL_WIDGET_TEMPLATE" description="LOGICAL_DESC_WIDGET_TEMPLATE">
+          <option value="bootstrap-v2.xml">LOGICAL_LBL_BOOTSTRAP_TWO</option>
+          <option value="bootstrap-v3.xml">LOGICAL_LBL_BOOTSTRAP_THREE</option>
+          <option value="bootstrap-v4.xml">LOGICAL_LBL_BOOTSTRAP_FOUR</option>
+          <option value="uikit-v2.xml">LOGICAL_LBL_UIKIT_TWO</option>
+          <option value="uikit-v3.xml">LOGICAL_LBL_UIKIT_THREE</option>
+        </field>
+      </fieldset>
+    </fields>
+  </config>
+</extension>

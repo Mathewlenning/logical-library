@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class %ComponentName%View%ViewName%%format%
+ *
+ * This is a standard view with CRUD
+ *
+ * @package  %ComponentName%
+ * @since    %version%
+ */
+class %ComponentName%View%ViewName%%format% extends Logical\View\RecordView
+{
+}

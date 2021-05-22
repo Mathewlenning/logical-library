@@ -1,0 +1,6 @@
+; Package   %ModName%
+; License   GNU General Public License version 2 or later; see LICENSE.txt, see LICENSE.php
+
+[EXTENSION]
+MOD_%MOD_NAME% = "%modName%"
+MOD_%MOD_NAME%_DESC = "%modName%"

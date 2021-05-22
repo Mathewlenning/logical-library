@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comGen" default="init" basedir="../../">
+
+    <property name="task" value="comGen"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+
+        <property name="createDashboard" value="Y"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${createDashboard}" outputProperty="result"/>
+        <echo msg="${result}"/>
+    </target>
+</project>

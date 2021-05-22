@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="plg_generator" default="init" basedir="../../">
+    <property name="task" value="plgGen"/>
+    <property name="builder" value="${project.basedir}/extension-gen/plugin/plgBuilder.php"/>
+
+    <target name="init">
+        <input message="Plugin Name" propertyName="plgName"/>
+        <input message="Plugin Type" propertyName="plgType"/>
+        <input message="Template" propertyName="tmpl" defaultValue="${plgType}"/>
+
+        <property name="baseDir" value="${project.basedir}/plugin/${plgType}/${plgName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/plugin/${tmpl}"/>
+
+        <if>
+            <available file="${baseDir}" type="dir"/>
+            <then>
+            </then>
+            <else>
+                <echo msg="Making directory at ${baseDir}"/>
+                <mkdir dir="${baseDir}"/>
+
+                <echo msg="Making Language at ${baseDir}"/>
+                <mkdir dir="${baseDir}/language/en-GB"/>
+            </else>
+        </if>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${plgName} ${plgType} " outputProperty="result"/>
+        <echo msg="${result}"/>
+    </target>
+</project>

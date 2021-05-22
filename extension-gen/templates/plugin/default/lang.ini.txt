@@ -1,0 +1,6 @@
+; Package   %PlgName%
+; License   GNU General Public License version 2 or later; see LICENSE.txt, see LICENSE.php
+
+[EXTENSION]
+PLG_%PLG_TYPE%_%PLG_NAME% = "%plgName%"
+PLG_%PLG_TYPE%_%PLG_NAME%_DESC = "%plgName%"

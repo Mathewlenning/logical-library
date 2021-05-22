@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package    %ModName%
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+defined('_JEXEC') or die;
+
+$app = JFactory::getApplication();
+$input = $app->input;
+
+JLoader::registerPrefix('Mod%ModName%', __DIR__);
+
+$lang = JFactory::getLanguage();
+$lang->load('mod_%modName%', __DIR__);
+
+$helper = new Mod%ModName%Helper;
+
+/** @var  Joomla\Registry\Registry $params */
+$layout = $params->get('layout', 'default');
+$moduleClassSuffix = htmlspecialchars($params->get('moduleclass_sfx'));
+
+require JModuleHelper::getLayoutPath('mod_%modName%', $layout);

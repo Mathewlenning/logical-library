@@ -1,0 +1,146 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class %ComponentName%View%ViewName%%format%
+ *
+ * This is a standard view with CRUD
+ *
+ * @package  %ComponentName%
+ * @since    %version%
+ */
+class %ComponentName%View%ViewName%%format% extends Logical\View\RecordView
+{
+	/**
+	 * @var Logical\Html\Toolbar
+	 */
+	protected $toolbar;
+
+	/**
+	 * @var Logical\Widget\WidgetElement
+	 */
+	protected $searchField;
+
+	/**
+	 * Method to prepare the page
+	 *
+	 * @return void
+	 */
+	protected function prepareToRender()
+	{
+		parent::prepareToRender();
+
+		switch ($this->layout)
+		{
+			case 'default':
+				$this->prepareListView();
+				break;
+			case 'form':
+				$this->prepareFormView();
+				break;
+		}
+	}
+
+	/**
+	 * Method to prepare the list view
+	 *
+	 * @return void
+	 */
+	protected function prepareListView()
+	{
+		/** @var %ComponentName%Model%ViewName% $model */
+		$model = $this->getModel();
+
+		$availableStates = $model->getAvailableStates();
+		$stateField = $model->getStateField();
+
+		foreach ($availableStates AS $state => $value)
+		{
+			$url = $this->formUrl . '&task=update&jform['. $stateField .']=' . $value;
+			$url .= '&' . JSession::getFormToken() . '=1';
+			$availableStates[$state] = array('href' => $url, 'class' => strtolower($value));
+		}
+
+		$this->availableStates = $availableStates;
+
+		/** @var Logical\Widget\WidgetRenderer $renderer */
+		$renderer = $this->getWidgetRenderer();
+		$filters = $renderer->render('filter.list.select.filter', array('filters' => $model->getFilterFields()));
+
+		$searchData = array(
+			'search' => $model->getState('filter.search'),
+			'selected' => $model->getState('list.limit'),
+			'extra-fields' => (string) $filters,
+			'action' => JRoute::_($this->formUrl)
+		);
+
+		$this->searchField = $renderer->render('filter.search', $searchData);
+
+		$this->toolbar = new Logical\Html\Toolbar($renderer);
+		$buttonGroup = $this->toolbar->addButtonGroup();
+
+		if ($model->allowAction('core.create'))
+		{
+			$this->toolbar->addNewButton($buttonGroup);
+		}
+
+		if ($model->allowAction('core.manage'))
+		{
+			$this->toolbar->addCheckInButton($buttonGroup);
+		}
+
+		if ($model->allowAction('core.delete'))
+		{
+			$this->toolbar->addDeleteButton($buttonGroup, array('confirm-msg' => JText::_('COM_%COMPONENT_NAME%_DELETE_%VIEWNAME%_WARNING')));
+		}
+	}
+
+	/**
+	 * Method to prepare a form view
+	 *
+	 * @return void
+	 *
+	 * @throws Exception
+	 */
+	protected function prepareFormView()
+	{
+		if (JFactory::getApplication()->isAdmin())
+		{
+			JFactory::getApplication()->input->set('hidemainmenu', true);
+		}
+
+		/** @var %ComponentName%Model%ViewName% $model */
+		$model = $this->getModel();
+		$primaryKey = $model->getKeyName();
+
+		$this->toolbar = new Logical\Html\Toolbar($this->getWidgetRenderer());
+		$buttonGroup = $this->toolbar->addButtonGroup();
+
+		$isNew = empty($this->item->{$primaryKey});
+		$canCreate = $model->allowAction('core.create');
+
+		if ($isNew && $canCreate)
+		{
+			$this->toolbar->addSaveButton($buttonGroup);
+			$this->toolbar->addSaveCloseButton($buttonGroup);
+			$this->toolbar->addSaveNewButton($buttonGroup);
+		}
+
+		if (!$isNew && $model->allowAction('core.edit'))
+		{
+			$this->toolbar->addSaveButton($buttonGroup, array('button-task' => 'update.edit'));
+			$this->toolbar->addSaveCloseButton($buttonGroup, array('button-task' => 'update.cancel'));
+			$this->toolbar->addSaveNewButton($buttonGroup, array('button-task' => 'update.add'));
+		}
+
+		$this->toolbar->addCancelButton($buttonGroup);
+	}
+}

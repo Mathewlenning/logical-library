@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+    <!-- START ACCORDION TEMPLATE -->
+
+    <template id="logical.html.accordion">
+        <ul class="uk-accordion" data-uk-accordion="true" id="@id">
+            <foreach data-source="@items">
+                <li class="@class">
+                    <a class="uk-accordion-title" href="#"><var data-source="@label" raw="true"/></a>
+                    <div id="@id" class="uk-accordion-content">
+                        <var data-source="@content" raw="true"/>
+                    </div>
+                </li>
+            </foreach>
+        </ul>
+    </template>
+
+    <!-- END ACCORDION TEMPLATE -->
+
+    <!-- START ALERT TEMPLATES -->
+
+    <template id="logical.alert.message">
+        <div class="uk-alert uk-alert-success @class" uk-alert="true">
+            <var data-source="@innerHtml" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.alert.warning">
+        <div class="uk-alert uk-alert-warning @class" uk-alert="true">
+            <var data-source="@innerHtml" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.alert.error">
+        <div class="uk-alert uk-alert-danger @class" uk-alert="true">
+            <var data-source="@innerHtml" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.alert.info">
+        <div class="uk-alert uk-alert-primary @class" uk-alert="true">
+            <var data-source="@innerHtml" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.alert.close">
+        <a href="#" class="uk-alert-close @class" uk-close="true"/>
+    </template>
+
+    <!-- END ALERT TEMPLATES -->
+
+    <!-- START MODAL TEMPLATE -->
+    <template id="logical.modal.wrapper">
+        <div id="@modal-id" class="@class" uk-modal="@options">
+            <div class="uk-modal-dialog">
+                <var data-source="@content" raw="true"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="logical.modal.header">
+        <div class="uk-modal-header">
+            <var data-source="@modal-header" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.modal.body">
+        <div class="uk-modal-body">
+            <var data-source="@modal-body" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.modal.footer">
+        <div class="uk-modal-footer">
+            <var data-source="@modal-footer" raw="true" />
+        </div>
+    </template>
+
+    <template id="logical.modal.close">
+        <button class="uk-modal-close-default" type="button" uk-close="true"/>
+    </template>
+
+    <template id="logical.modal.control">
+        <a class="uk-button @class" href="@modal-id" uk-toggle="" onclick="@onclick"><var data-source="@text" raw="true" /></a>
+    </template>
+
+    <!-- END MODAL TEMPLATE -->
+
+    <!-- START OFFSCREEN TEMPLATE -->
+    <template id="logical.offscreen.wrapper">
+        <div class="logical-offscreen-container @class" id="@id">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.offscreen.header">
+        <div class="logical-offscreen-header">
+            <var data-source="@offscreen-header" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.offscreen.body">
+        <div class="logical-offscreen-body">
+            <var data-source="@offscreen-body" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.offscreen.footer">
+        <div class="logical-offscreen-footer">
+            <var data-source="@offscreen-footer" raw="true" />
+        </div>
+    </template>
+    <!-- END OFFSCREEN TEMPLATE -->
+
+    <!-- START CAROUSEL TEMPLATE -->
+
+    <template id="logical.html.carousel">
+        <div uk-slideshow="">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.carousel.items">
+        <ul class="uk-slideshow-items">
+            <foreach data-source="@items">
+                <li class="@class">
+                    <img src="@src" uk-cover=""/>
+                    <var data-source="@caption" raw="true"/>
+                </li>
+            </foreach>
+        </ul>
+    </template>
+
+    <template id="logical.html.carousel.caption">
+        <div class="@class uk-position-bottom">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.carousel.indicators">
+        <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"/>
+    </template>
+
+    <template id="logical.html.carousel.controls">
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous="" uk-slideshow-item="previous"/>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next="" uk-slideshow-item="next"/>
+    </template>
+
+    <!-- END CAROUSEL TEMPLATE -->
+
+    <!-- START TABS TEMPLATE -->
+
+    <template id="logical.html.tabs">
+        <div>
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.tabs.controls">
+        <ul uk-tab="@id">
+            <foreach data-source="@tabs">
+                <li class="@class"><a href="#"><var data-source="@label"/></a></li>
+            </foreach>
+        </ul>
+    </template>
+
+    <template id="logical.html.tabs.panes">
+        <ul class="uk-switcher uk-margin">
+            <foreach data-source="@tabs">
+                <li class="@class" id="@id">
+                    <var data-source="@content" raw="true"/>
+                </li>
+            </foreach>
+        </ul>
+    </template>
+
+    <!-- END TABS TEMPLATE -->
+
+    <!-- START PROGRESSBAR TEMPLATE -->
+
+    <template id="logical.progress.bar">
+        <div class="progress @class">
+            <foreach data-source="@bars">
+                <div class="bar @bar-class" style="@style"/>
+            </foreach>
+        </div>
+    </template>
+
+    <!-- END PROGRESSBAR TEMPLATE -->
+
+    <!-- START RATINGS TEMPLATE -->
+
+    <template id="logical.ratings.bar">
+        <div class="logical-rating">
+            <div class="logical-ratings-bar @class">
+                <div class="logical-ratings-background @bg-class"/>
+                <div class="logical-ratings-foreground @fg-class" style="@style"/>
+            </div>
+        </div>
+    </template>
+
+    <!-- END RATINGS TEMPLATE -->
+
+    <!-- START LIST CONTROL TEMPLATES -->
+
+    <template id="filter.sort.control">
+        <a href="@href" data-sort-column="@sort-column">
+            <var data-source="@text" raw="true"/>
+        </a>
+    </template>
+
+    <template id="filter.list.select.filter">
+        <foreach data-source="@filters">
+            <select name="@name" class="input-block-level @class">
+                <option value=""><var data-source="@default_option" translate="true"/></option>
+                <foreach data-source="@options">
+                    <option value="@value"><var data-source="@text" translate="true"/></option>
+                </foreach>
+            </select>
+        </foreach>
+    </template>
+
+    <template id="filter.list.daterange">
+        <div class="uk-grid uk-grid-small" uk-grid="">
+            <label class="uk-width-1-1"><var data-source="@title" translate="true"/></label>
+            <div class="uk-width-1-2">
+                <input type="date" class="input-block-level" name="filter[from]" placeholder="LOGICAL_FILTER_DATERANGE_FROM" value="@from_value"/>
+            </div>
+            <div class="uk-width-1-2">
+                <input type="date" class="input-block-level" name="filter[to]" placeholder="LOGICAL_FILTER_DATERANGE_TO" value="=@to_value"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="list.state.control">
+        <a href="@href" class="uk-button uk-button-default uk-button-small @class">
+            <i class="icon-state-icon"/>
+        </a>
+    </template>
+
+    <template id="list.check.all.control">
+        <input type="checkbox" name="checkall-toggle" value="" uk-tooltip="LOGICAL_CHECK_ALL" onclick="logical.form.checkAll(event);"/>
+    </template>
+
+    <template id="filter.list.limit">
+        <select name="limit"
+                class="input-block-level"
+                onchange="this.form.submit();">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="0">
+                <jtext>JALL</jtext>
+            </option>
+        </select>
+    </template>
+    <!-- END LIST CONTROL TEMPLATES -->
+
+    <!-- START PAGINATION TEMPLATES -->
+
+    <template id="filter.list.pagination">
+        <div class="pagination pagination-toolbar">
+            <ul class="uk-pagination uk-flex-center">
+                <foreach data-source="@page_links">
+                    <widget data-source="@widgetId"/>
+                </foreach>
+            </ul>
+        </div>
+    </template>
+
+    <template id="filter.list.pagination.directional.disabled">
+        <li class="uk-disabled">
+            <a><span class="@icon-class"/></a>
+        </li>
+    </template>
+
+    <template id="filter.list.pagination.directional.enabled">
+        <li>
+            <a uk-tooltip="@title" href="@link-href">
+                <span class="@icon-class"/>
+            </a>
+        </li>
+    </template>
+
+    <template id="filter.list.pagination.page.active">
+        <li class="uk-active uk-visible@s">
+            <a>
+                <var data-source="@page_number"/>
+            </a>
+        </li>
+    </template>
+
+    <template id="filter.list.pagination.page.inactive">
+        <li class="uk-visible@s">
+            <a href="@link-href">
+                <var data-source="@page_number"/>
+            </a>
+        </li>
+    </template>
+
+    <!-- START PAGINATION TEMPLATES -->
+
+
+    <!-- START TOOLBAR TEMPLATES -->
+
+    <template id="logical.html.toolbar">
+        <div class="@class">
+            <foreach data-source="@btnGroups">
+                <widget data-source="button.group"/>
+            </foreach>
+        </div>
+    </template>
+
+    <template id="button.group">
+        <div class="uk-button-group @class">
+            <foreach data-source="@buttons">
+                <widget data-source="@widgetId"/>
+            </foreach>
+        </div>
+    </template>
+
+    <template id="button.standard">
+        <button onclick="@button-action" class="uk-button uk-button-default @class">
+            <i class="@icon-class"/>
+            <var data-source="@button-text" translate="true"/>
+        </button>
+    </template>
+
+    <template id="logical.form.button">
+        <button onclick="@onclick"
+                class="uk-button uk-button-default @class"
+                data-confirm="@confirm-msg"
+                data-task="@button-task"
+                data-ajax="@data-ajax">
+            <i class="uk-icon" uk-icon="@icon-class"/>
+            <var data-source="@button-text"/>
+        </button>
+    </template>
+
+    <template id="logical.form.button.link">
+        <a href="@href" onclick="@onclick"
+           class="uk-button uk-button-default @class"
+           data-confirm="@confirm-msg"
+           data-task="@button-task">
+            <i class="@icon-class"/>
+            <var data-source="@button-text"/>
+        </a>
+    </template>
+
+    <!-- END TOOLBAR TEMPLATES -->
+
+    <!-- START GRID TEMPLATES -->
+
+    <template id="logical.html.grid">
+        <div class="uk-grid @class" uk-grid="">
+            <foreach data-source="@items">
+                <widget data-source="@widgetId"/>
+            </foreach>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.row">
+        <div class="uk-grid @class" uk-grid="">
+            <foreach data-source="@items">
+                <widget data-source="@widgetId"/>
+            </foreach>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.1">
+        <div class="uk-width-1-6@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.2">
+        <div class="uk-width-1-6@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.3">
+        <div class="uk-width-1-4@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.4">
+        <div class="uk-width-1-3@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.5">
+        <div class="uk-width-1-3@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.6">
+        <div class="uk-width-1-2@s  @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.7">
+        <div class="uk-width-4-6@s  @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.8">
+        <div class="uk-width-2-3@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.9">
+        <div class="uk-width-4-5@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.10">
+        <div class="uk-width-5-6@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.11">
+        <div class="uk-width-5-6@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.12">
+        <div class="uk-width-1-1@s @class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+
+    <template id="logical.html.grid.raw">
+        <div class="@class">
+            <var data-source="@content" raw="true"/>
+        </div>
+    </template>
+    <!-- END GRID TEMPLATES -->
+
+    <!-- START ADMIN SPECIFIC TEMPLATES -->
+
+    <template id="filter.search">
+        <form action="@action" method="post" class="@class">
+            <div class="uk-grid-small" uk-grid="">
+                <div class="uk-width-1-1">
+                    <input type="text" name="filter[search]"
+                           value="@search"
+                           placeholder="LOGICAL_SEARCH"
+                           class="input-block-level"
+                           data-filter="search"
+                    />
+                </div>
+                <div class="uk-width-1-1">
+                    <var data-source="@extra-fields" raw="true"/>
+                </div>
+                <div class="uk-width-1-3">
+                    <widget data-source="filter.list.limit"/>
+                </div>
+                <div class="uk-width-1-3">
+                    <button type="submit" class="btn btn-primary input-block-level">
+                        <i class="icon-search"/>
+                        <jtext>LOGICAL_SEARCH</jtext>
+                    </button>
+                </div>
+                <div class="uk-width-1-3">
+                    <button class="btn input-block-level" type="reset"
+                            onclick="jQuery(this.form).find('input[name!=limitstart]').val(''); jQuery(this.form).find('select').val(''); this.form.submit();">
+                        <i class="icon-cancel-circle"/>
+                        <jtext>LOGICAL_CLEAR</jtext>
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" name="limitstart" value="0"/>
+            <input type="hidden" name="task" value=""/>
+            <token/>
+        </form>
+    </template>
+
+    <template id="logical.export.form">
+        <form action="@action" method="post" class="@class">
+            <fieldset class="form-horizontal">
+                <div class="uk-grid-small" uk-grid="">
+                    <div class="uk-width-1-1">
+                        <div class="control-label hasTooltip" title="LOGICAL_EXPORT_DESC_USE_FILTER">
+                            <jtext>LOGICAL_EXPORT_LBL_USE_FILTER</jtext>
+                        </div>
+                        <div class="controls">
+                            <label class="radio">
+                                <input type="radio" name="export[useFilters]" value="YES"/><jtext>JYES</jtext>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="export[useFilters]" value="NO"/><jtext>JNO</jtext>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="control-label hasTooltip" title="LOGICAL_EXPORT_DESC_EXPORT_FORMAT">
+                            <label for="format"><jtext>LOGICAL_EXPORT_LBL_EXPORT_FORMAT</jtext></label>
+                        </div>
+                        <div class="controls">
+                            <select name="format" class="input-block-level">
+                                <option value="xml"><jtext>LOGICAL_LBL_XML</jtext></option>
+                                <option value="csv"><jtext>LOGICAL_LBL_CSV</jtext></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="control-group">
+                            <br/>
+                            <div class="controls">
+                                <button class="btn btn-primary" onclick="logical.form.submitButton(event);" data-task="export">
+                                    <i class="icon-download"/>
+                                    <jtext>LOGICAL_ACTION_EXPORT</jtext>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="hidden" name="task" value=""/>
+            <token/>
+        </form>
+    </template>
+
+    <template id="logical.import.form">
+        <form action="@action" method="post" class="@class"  enctype="multipart/form-data">
+            <fieldset class="form-horizontal">
+                <div class="uk-grid-small" uk-grid="">
+                    <div class="uk-width-1-1">
+                        <div class="control-group">
+                            <div class="control-label">
+                                <label for="import[file]"><jtext>LOGICAL_LBL_IMPORT_FILE</jtext></label>
+                            </div>
+                            <div class="controls">
+                                <input type="file" name="import[file]" class="input-block-level" style="width:100%;" accept=".csv,.xml" onchange="logical.form.fileInputIndicator(event);"/>
+                                <div data-id="file_indicator" class="center nowrap" style="overflow: hidden;">
+                                    <div data-function="default">
+                                        <jtext>LOGICAL_LBL_NO_FILE_TEXT</jtext>
+                                    </div>
+                                    <div data-function="value" class="hide"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="control-group">
+                            <div class="control-label">
+                                <label for="import[type]">
+                                    <jtext>LOGICAL_LBL_IMPORT_TYPE</jtext>
+                                </label>
+                            </div>
+                            <div class="controls">
+                                <select name="import[type]"  class="input-block-level">
+                                    <option value="create"><jtext>LOGICAL_LBL_CREATE</jtext></option>
+                                    <option value="update"><jtext>LOGICAL_LBL_UPDATE</jtext></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="control-group">
+                            <div class="control-label">
+                                <label for="import[type]">
+                                    <jtext>LOGICAL_LBL_IMPORT_TYPE</jtext>
+                                </label>
+                            </div>
+                            <div class="controls">
+                                <select name="import[type]"  class="input-block-level">
+                                    <option value="create"><jtext>LOGICAL_LBL_CREATE</jtext></option>
+                                    <option value="update"><jtext>LOGICAL_LBL_UPDATE</jtext></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <div class="control-group">
+                            <br/>
+                            <div class="controls">
+                                <button class="btn btn-primary" onclick="logical.form.submitButton(event);" data-task="import">
+                                    <i class="icon-upload"/>
+                                    <jtext>LOGICAL_ACTION_IMPORT</jtext>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="hidden" name="task" value=""/>
+            <token/>
+        </form>
+    </template>
+
+    <!-- END ADMIN SPECIFIC TEMPLATES -->
+</widgets>

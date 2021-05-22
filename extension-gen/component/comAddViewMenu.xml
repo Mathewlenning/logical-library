@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddView" default="init" basedir="../../">
+
+    <property name="task" value="comAddViewMenu"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+
+        <phingcall target="createViewMenu"/>
+    </target>
+
+    <target name="continue">
+        <input message="Do you want to make another view menu?" propertyName="makeAnother" validArgs="Y,N"/>
+
+        <if>
+            <equals arg1="${makeAnother}" arg2="y" trim="true" casesensitive="false"/>
+            <then>
+                <phingcall target="createViewMenu"/>
+            </then>
+            <else>
+            </else>
+        </if>
+    </target>
+
+    <target name="createViewMenu">
+        <input message="View Name" propertyName="viewName"/>
+        <input message="Layout Name" propertyName="layoutName"/>
+        <input message="Translation Title" propertyName="title_value"/>
+        <input message="Translation description" propertyName="desc_value"/>
+        <input message="Add request section" propertyName="addRequest" defaultValue="Y" validArgs="Y,N"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${viewName} ${layoutName} ${title_value} ${desc_value} ${addRequest}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+
+        <phingcall target="continue"/>
+    </target>
+</project>

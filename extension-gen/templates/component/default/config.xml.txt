@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <!-- SOF PERMISSIONS -->
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules"
+               type="rules"
+               section="component"
+               component="com_%component_name%"
+               filter="rules"
+               validate="rules"
+               label="JCONFIG_PERMISSIONS_LABEL"
+                />
+    </fieldset>
+    <!-- EOF PERMISSIONS -->
+</config>

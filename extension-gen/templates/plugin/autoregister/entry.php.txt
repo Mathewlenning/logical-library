@@ -1,0 +1,140 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Plugin\CMSPlugin AS JPlugin;
+
+/**
+ * Class Plg%PlgType%%PlgName%
+ *
+ * @since  0.0.1
+ */
+class Plg%PlgType%%PlgName% extends JPlugin
+{
+	/**
+	 * @var JUser
+	 */
+	protected $user;
+
+	/**
+	 * @var array
+	 */
+	protected $defaultGroups = array();
+
+	/**
+	 * Method to register custom library.
+	 *
+	 * @return  void
+	 * @throws Exception
+	 */
+	public function onAfterInitialise()
+	{
+		$this->app = JFactory::getApplication();
+		$this->loadLanguage();
+	}
+
+
+	protected function getUser($src)
+	{
+		if (\Logical\Utility\User::getUserByEmail($src['referrer_email']))
+		{
+			throw new ErrorException(JText::_('PLG_%PLG_TYPE%_%PLG_NAME%_USER_ALREADY_EXISTS'));
+		}
+
+		$parts = explode('@', $src['referrer_email']);
+
+		$rawUserName = array_shift($parts);
+		$userName = Logical\Utility\User::getUniqueUserName($rawUserName);
+		$user = Logical\Utility\User::createNewUser($src['referrer_name'], $src['referrer_email'], $userName, null, array(), true);
+
+		return $user;
+	}
+
+	/**
+	 * Method to get an array of search/replace values
+	 *
+	 * @return  array
+	 */
+	protected function getSearchReplace()
+	{
+		$search = array();
+		$search[] = '%name%';
+		$search[] = '%username%';
+		$search[] = '%password%';
+		$search[] = '%site_name%';
+		$search[] = '%site_url%';
+
+		$replace = array();
+		$replace[] = $this->user->name;
+		$replace[] = $this->user->username;
+		$replace[] = $this->user->password_clear;
+		$replace[] = $this->app->get('sitename');
+		$replace[] = JUri::base();
+
+		return array('search' => $search, 'replace' => $replace);
+	}
+
+	/**
+	 * Method to get message subject
+     *
+     * @return  string
+     */
+	protected function getSubject($search, $replace)
+	{
+		return str_replace(
+			$search,
+			$replace,
+			$this->params->get(
+				'subject',
+				JText::_('PLG_%PLG_TYPE%_%PLG_NAME%_DEFAULT_SUBJECT')
+			)
+		);
+	}
+
+	/**
+	 * Method to get message body
+     *
+     * @return  string
+     */
+	protected function getBody($search, $replace)
+	{
+		return str_replace(
+			$search,
+			$replace,
+			$this->params->get(
+				'body',
+				JText::_('PLG_%PLG_TYPE%_%PLG_NAME%_DEFAULT_BODY')
+			)
+		);
+	}
+
+	/**
+	 * Method to send an email notification
+	 *
+	 * @param array  $toAddress     One or more Recipient's address
+	 * @param string  $subject      subject line
+	 * @param string  $message      notification body
+	 * @param string  $fromAddress  Senders address
+     * @param string  $fromName     Senders name
+	 */
+	protected function sendMail($toAddress, $subject, $message, $fromAddress = null, $fromName = null)
+	{
+
+		$fromAddress = (empty($fromAddress)) ? $this->params->get('from_email', $this->app->get('mailfrom')) : $fromAddress;
+		$fromName = (empty($fromName)) ? $this->params->get('from_name', $this->app->get('fromname')) : $fromName;
+
+		$mailer = JFactory::getMailer();
+
+		foreach($toAddress AS $address)
+		{
+			$mailer->sendMail($fromAddress, $fromName, $address, $subject, $message, true);
+		}
+	}
+}

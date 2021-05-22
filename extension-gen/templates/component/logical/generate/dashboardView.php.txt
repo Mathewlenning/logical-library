@@ -1,0 +1,99 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class %ComponentName%ViewDashboardHtml
+ *
+ * This is a standard dashboard view
+ *
+ * @package %ComponentName%
+ * @since    0.0.1
+ */
+class %ComponentName%ViewDashboardHtml extends Logical\View\DataView
+{
+	/**
+	 * The request option $app->input->get(option)
+	 * @var string
+	 */
+	protected $requestOption;
+
+	/**
+	 * The request view $app->input->get(view)
+	 * @var string
+	 */
+	protected $requestView;
+
+	/**
+	 * The request layout $app->input->get(layout)
+	 * @var string
+	 */
+	protected $requestLayout;
+
+	/**
+	 * DemoViewSidebarHtml constructor.
+	 *
+	 * save the request view name here
+	 *
+	 * @param   array  $config  configuration array
+	 */
+	public function __construct(array $config)
+	{
+		parent::__construct($config);
+
+		// Get the application input
+		$input = JFactory::getApplication()->input;
+
+		// Since this is HMVC only we need the actual request option, view to build the formUrl
+		$this->requestOption = $input->get('option');
+		$this->requestView = $input->get('view');
+		$this->requestLayout = $input->get('layout');
+
+		$this->formUrl = 'index.php?option=' . $this->requestOption . '&view=' . $this->requestView;
+
+		if (!empty($this->requestLayout) && $this->requestLayout !== 'default')
+		{
+			$this->formUrl .= '&layout=' . $this->requestLayout;
+		}
+	}
+
+	/**
+	 * Copied over from to add the title
+	 *
+	 * @return void
+	 */
+	protected function prepareToRender()
+	{
+		if (!\JFactory::getApplication()->isAdmin()
+			|| $this->requestView != 'dashboard' )
+		{
+			return;
+		}
+
+		JToolbarHelper::title(JText::_(strtoupper($this->config['option'] . '_header_' . $this->config['view'] . '_' . $this->config['layout'])));
+	}
+
+	/**
+	 * Method to get the CSS class for the active sidebar link
+	 *
+	 * @param   string  $view  the link view
+	 *
+	 * @return string
+	 */
+	protected function getActiveClass($view)
+	{
+		if ($view != $this->requestView)
+		{
+			return '';
+		}
+
+		return ' class="active"';
+	}
+}

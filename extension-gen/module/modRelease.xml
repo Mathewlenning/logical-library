@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="modRelease" default="init" basedir="../../">
+    <import file="${project.basedir}/extension-gen/shared/releaseUtility.xml"/>
+    <property name="task" value="modRelease"/>
+    <property name="builder" value="${project.basedir}/extension-gen/module/modBuilder.php"/>
+
+    <target name="init">
+        <input message="Module Name" propertyName="modName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="default"/>
+        <input message="Build Type" propertyName="buildType" validArgs="ma,mi,b,none" defaultValue="b"/>
+
+        <property name="baseDir" value="${project.basedir}/module/mod_${modName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/module/${tmpl}"/>
+
+        <echo message="Updating Manifest Version and files"/>
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${modName} ${buildType}" outputProperty="version"/>
+        <echo message="Building ${version}"/>
+
+        <phingcall target="createTempDir"/>
+
+        <phingcall target="copySrc">
+            <property name="srcDir" value="${baseDir}"/>
+        </phingcall>
+
+        <phingcall target="createPackage">
+            <property name="releaseDir" value="${project.basedir}/releases/module/${modName}"/>
+            <property name="packageName" value="${modName}-ver-${version}.zip"/>
+        </phingcall>
+
+        <phingcall target="cleanup"/>
+    </target>
+</project>

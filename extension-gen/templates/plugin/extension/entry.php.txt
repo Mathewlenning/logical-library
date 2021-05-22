@@ -1,0 +1,55 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class Plg%PlgType%%PlgName%
+ *
+ * @since  0.0.1
+ */
+class Plg%PlgType%%PlgName% extends JPlugin
+{
+	/**
+	 * Handle post extension install update sites
+	 *
+	 * @param   JInstaller  $installer  Installer object
+	 * @param   integer     $eid        Extension Identifier
+	 *
+	 * @return  void
+	 */
+	public function onExtensionAfterInstall($installer, $eid )
+	{
+	}
+
+	/**
+	 * Handle extension uninstall
+	 *
+	 * @param   JInstaller  $installer  Installer instance
+	 * @param   integer     $eid        Extension id
+	 * @param   integer     $result     Installation result
+	 *
+	 * @return  void
+	 */
+	public function onExtensionAfterUninstall($installer, $eid, $result)
+	{
+	}
+
+	/**
+	 * After update of an extension
+	 *
+	 * @param   JInstaller  $installer  Installer object
+	 * @param   integer     $eid        Extension identifier
+	 *
+	 * @return  void
+	 */
+	public function onExtensionAfterUpdate($installer, $eid)
+	{
+	}
+}

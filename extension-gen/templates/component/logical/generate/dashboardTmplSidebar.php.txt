@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$sidebarXml = simplexml_load_file(__DIR__ . '/sidebar.xml');
+?>
+
+<ul id="submenu" class="nav nav-list">
+	<?php foreach($sidebarXml->children() as $link):?>
+		<?php $class = $this->getActiveClass($link['view']);?>
+		<li<?php echo $class;?>>
+			<a href="<?php echo JRoute::_(html_entity_decode($link['href']));?>">
+				<?php echo JText::_($link['text']);?>
+			</a>
+		</li>
+	<?php endforeach;?>
+</ul>

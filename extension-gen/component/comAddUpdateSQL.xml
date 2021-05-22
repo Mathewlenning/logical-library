@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddUpdateSql" default="init" basedir="../../">
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+        <phingcall target="addUpdateSQL"/>
+    </target>
+
+    <target name="addUpdateSQL">
+        <input message="Build Type" propertyName="build_type" validArgs="ma,mi,b,none" defaultValue="b"/>
+        <exec command="php ${builder} addUpdateSQL ${baseDir} ${tmplDir} ${componentName} ${build_type}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+    </target>
+</project>

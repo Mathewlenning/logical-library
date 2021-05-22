@@ -1,0 +1,38 @@
+
+.logical-rating{
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logical-rating .logical-ratings-bar
+{
+    display: inline-block;
+}
+
+.logical-rating .logical-ratings-bar .logical-ratings-background
+{
+    color: #CCCCCC;
+}
+
+.logical-rating .logical-ratings-bar .logical-ratings-background:before
+{
+    font-family: 'IcoMoon';
+    display: inline-block;
+    content: "\42\42\42\42\42";
+    position: absolute;
+}
+
+.logical-rating .logical-ratings-bar .logical-ratings-foreground
+{
+    overflow: hidden;
+    width: 0;
+
+}
+.logical-rating .logical-ratings-bar .logical-ratings-foreground:before {
+    font-family: 'IcoMoon';
+    display: inline-block;
+    content: "\42\42\42\42\42";
+    position: relative;
+    z-index: 1;
+}

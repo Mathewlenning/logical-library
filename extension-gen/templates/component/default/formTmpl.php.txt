@@ -1,0 +1,53 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$document = JFactory::getDocument();
+$document->addStylesheet(JUri::root(true) . '/media/logical/css/admin_shiv.css', 'text/css');
+$document->addScript(JUri::root(true) .'/media/logical/js/logical.js');
+
+$fieldsets = $this->form->getFieldsets();
+$toolbar = $this->toolbar->render();
+?>
+<div class="row-fluid">
+	<div class="span12">
+		<form action="<?php echo JRoute::_($this->formUrl);?>" method="post">
+			<?php if (!is_null($toolbar)):?>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php echo $toolbar;?>
+				</div>
+			</div>
+			<?php endif;?>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php foreach ( $fieldsets AS $fieldset):?>
+						<?php if($fieldset->name == 'internal'):?>
+                    		<?php continue;?>
+                    	<?php endif;?>
+						<?php $class = '';?>
+						<?php if(!empty($fieldset->class)):?>
+							<?php $class = ' '. $fieldset->class;?>
+						<?php endif;?>
+						<fieldset class="<?php echo $class;?>">
+							<legend><?php echo JText::_($fieldset->label); ?></legend>
+							<?php $fields = $this->form->getFieldset($fieldset->name);?>
+							<?php foreach($fields AS $field):?>
+								<?php echo $field->renderField();?>
+							<?php endforeach;?>
+						</fieldset>
+					<?php endforeach;?>
+				</div>
+			</div>
+			<input type="hidden" name="task" value="">
+    		<?php echo JHtmlForm::token();?>
+		</form>
+	</div>
+</div>

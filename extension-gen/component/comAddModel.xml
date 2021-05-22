@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddModel" default="init" basedir="../../">
+    <property name="task" value="comAddModel"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+
+        <phingcall target="createModel"/>
+    </target>
+
+    <target name="continue">
+        <input message="Do you want to make another model?" propertyName="makeAnother" validArgs="Y,N"/>
+
+        <if>
+            <equals arg1="${makeAnother}" arg2="y" trim="true" casesensitive="false"/>
+            <then>
+                <phingcall target="createModel"/>
+            </then>
+            <else>
+            </else>
+        </if>
+    </target>
+
+    <target name="createModel">
+        <input message="Model Name" propertyName="modelName"/>
+        <input message="Model Type : data, collection, record " propertyName="modelType" />
+        <input message="Create Form?" propertyName="createForm" validArgs="Y,N"/>
+        <input message="Create Table?" propertyName="createTable" validArgs="Y,N"/>
+        <input message="What part of the application" propertyName="app" validArgs="admin,site" defaultValue="admin"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${modelName} ${modelType} ${createForm} ${createTable} ${app}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+
+        <phingcall target="continue"/>
+    </target>
+</project>

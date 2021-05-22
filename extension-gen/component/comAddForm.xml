@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddForm" default="init" basedir="../../">
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+        <phingcall target="addFieldset"/>
+    </target>
+
+    <target name="addFieldset">
+        <input message="Form Name" propertyName="formName"/>
+        <input message="What part of the application" propertyName="app" validArgs="admin,site" defaultValue="admin"/>
+        <input message="Fieldset Name" propertyName="fieldSetName" defaultValue="standard"/>
+        <input message="Field names (comma separated values)" propertyName="fieldNames"/>
+
+        <exec command="php ${builder} comAddForm ${baseDir} ${tmplDir} ${componentName} ${formName} ${fieldSetName} ${fieldNames} ${app}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+        <phingcall target="continue"/>
+    </target>
+
+    <target name="continue">
+        <input message="Do you want to add another fieldset?" propertyName="addAnother" validArgs="Y,N" defaultValue="N"/>
+
+        <if>
+            <equals arg1="${addAnother}" arg2="y" trim="true" casesensitive="false"/>
+            <then>
+                <phingcall target="addFieldset"/>
+            </then>
+        </if>
+    </target>
+</project>

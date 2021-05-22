@@ -1,0 +1,141 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Plugin\CMSPlugin AS JPlugin;
+
+/**
+ * Class Plg%PlgType%%PlgName%
+ *
+ * @since  0.0.1
+ */
+class Plg%PlgType%%PlgName% extends JPlugin
+{
+
+	/**
+	 * Method is called before user data is stored in the database
+	 *
+	 * @param   array    $user   Holds the old user data.
+	 * @param   boolean  $isnew  True if a new user is stored.
+	 * @param   array    $data   Holds the new user data.
+	 *
+	 * @return    boolean
+	 *
+	 * @since   3.1
+	 * @throws    InvalidArgumentException on invalid date.
+	 */
+	public function onUserBeforeSave($user, $isnew, $data)
+	{
+	}
+
+	/**
+	 * Utility method to act on a user after it has been saved.
+	 *
+	 * This method sends a registration email to new users created in the backend.
+	 *
+	 * @param   array    $user     Holds the new user data.
+	 * @param   boolean  $isnew    True if a new user is stored.
+	 * @param   boolean  $success  True if user was successfully stored in the database.
+	 * @param   string   $msg      Message.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
+	public function onUserAfterSave($user, $isnew, $success, $msg)
+	{
+	}
+
+	/**
+	 * This method should handle any login logic and report back to the subject
+	 *
+	 * @param   array  $user     Holds the user data
+	 * @param   array  $options  Array holding options (remember, autoregister, group)
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   1.5
+	 */
+	public function onUserLogin($user, $options = array())
+	{
+	}
+
+	/**
+	 * We set the authentication cookie only after login is successfully finished.
+	 * We set a new cookie either for a user with no cookies or one
+	 * where the user used a cookie to authenticate.
+	 *
+	 * @param   array  $options  Array holding options
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   3.2
+	 */
+	public function onUserAfterLogin($options)
+	{
+	}
+
+	/**
+	 * This method should handle any logout logic and report back to the subject
+	 *
+	 * @param   array  $user     Holds the user data.
+	 * @param   array  $options  Array holding options (client, ...).
+	 *
+	 * @return  object  True on success
+	 *
+	 * @since   1.5
+	 */
+	public function onUserLogout($user, $options = array())
+	{
+	}
+
+	/**
+	 * This is where we delete any authentication cookie when a user logs out
+	 *
+	 * @param   array  $options  Array holding options (length, timeToExpiration)
+	 *
+	 * @return  boolean  True on success
+	 *
+	 * @since   3.2
+	 */
+	public function onUserAfterLogout($options)
+	{
+	}
+
+	/**
+	 * Remove all sessions for the user name
+	 *
+	 * Method is called after user data is deleted from the database
+	 *
+	 * @param   array    $user     Holds the user data
+	 * @param   boolean  $success  True if user was successfully stored in the database
+	 * @param   string   $msg      Message
+	 *
+	 * @return  boolean
+	 */
+	public function onUserBeforeDelete($user)
+	{
+	}
+
+	/**
+	 * Remove all sessions for the user name
+	 *
+	 * Method is called after user data is deleted from the database
+	 *
+	 * @param   array    $user     Holds the user data
+	 * @param   boolean  $success  True if user was successfully stored in the database
+	 * @param   string   $msg      Message
+	 *
+	 * @return  boolean
+	 */
+	public function onUserAfterDelete($user, $success, $msg)
+	{
+	}
+}

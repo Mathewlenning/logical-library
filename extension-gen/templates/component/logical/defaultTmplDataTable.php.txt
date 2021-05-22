@@ -1,0 +1,89 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+/** @var DemoModelLists $model */
+$model = $this->getModel();
+$primaryKey = $model->getKeyName();
+
+/** @var Logical\Html\Pagination $pagination */
+$pagination = $this->pagination;
+
+/** @var Logical\Widget\WidgetRenderer $renderer */
+$renderer = $this->getWidgetRenderer();
+$listDirection = $model->getState('list.direction', array('asc'));
+$stateField = $model->getStateField();
+?>
+
+<table class="table <?php echo strtolower(implode('_', $listDirection));?>">
+	<thead>
+	<tr>
+		<th class="cidColumn width-1">
+			<?php echo $renderer->render('list.check.all.control');?>
+		</th>
+		<?php if(!is_null($stateField)):?>
+		<th class="nowrap center hidden-phone width-1">
+			<?php echo $this->getSortingLink('a.'. $stateField, 'LOGICAL_LBL_STATUS');?>
+		</th>
+		<?php endif;?>
+		<th>
+			<?php echo $this->getSortingLink('a.task_name', 'COM_%COMPONENT_NAME%_%VIEWNAME%_NAME');?>
+		</th>
+		<th class="center width-1">
+			<?php echo $this->getSortingLink('a.'. $primaryKey, 'LOGICAL_LBL_ID');?>
+		</th>
+	</tr>
+	</thead>
+	<tfoot>
+	<tr>
+		<td colspan="100">
+			<?php echo $pagination->getListFooter($this->formUrl);?>
+		</td>
+	</tr>
+	</tfoot>
+	<tbody>
+	<?php foreach ($this->items AS $item): ?>
+		<?php $tableClass = (!is_null($stateField)) ? ' class="' . strtolower('record_state_' . $item->{$stateField}) .'"': '';?>
+		<tr data-id="<?php echo $item->list_id;?>"<?php echo $tableClass;?>>
+			<td>
+				<input type="checkbox" name="cid[]" value="<?php echo $item->{$primaryKey};?>"/>
+			</td>
+			<?php if(!is_null($stateField)):?>
+			<td>
+				<div class="btn-group">
+					<?php foreach($this->availableStates as $state):?>
+						<?php $state['href'] = JRoute::_($state['href'] . '&id=' . (int) $item->{$primaryKey});?>
+						<?php echo $renderer->render('list.state.control', $state);?>
+					<?php endforeach;?>
+				</div>
+			</td>
+			<?php endif;?>
+			<td>
+				<a href="<?php echo JRoute::_($this->formUrl . '&task=edit&id=' . (int) $item->{$primaryKey});?>">
+					%EDIT%
+				</a>
+			</td>
+			<td class="center">
+				<?php echo $item->{$primaryKey};?>
+			</td>
+		</tr>
+	<?php endforeach;?>
+	<?php if(count($this->items) <= 0):?>
+	<tr>
+		<td colspan="100">
+		    <div class="alert alert-block alert-info center">
+            <h4><?php echo JText::_('LOGICAL_NO_RECORDS_FOUND');?></h4>
+            </div>
+		</td>
+	</tr>
+    <?php endif;?>
+	</tbody>
+</table>
+

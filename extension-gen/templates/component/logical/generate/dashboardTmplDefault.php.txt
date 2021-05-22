@@ -1,0 +1,41 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+$document = JFactory::getDocument();
+$document->addStylesheet(JUri::root(true) . '/media/logical/css/admin_shiv.css', 'text/css');
+$document->addScript(JUri::root(true) . '/media/logical/js/logical.js');
+
+?>
+
+<div class="row-fluid">
+	<div class="span2">
+		<div class="row-fluid">
+			<div class="span12">
+				<?php echo $this->loadTemplate(null, 'sidebar');?>
+			</div>
+		</div>
+		<div class="row-fluid">
+        	<div class="span12">
+        		<p class="text-center"><small><?php echo  static::$version->getName();?> <?php echo  static::$version->getVersion();?></small></p>
+        	</div>
+        </div>
+	</div>
+	<div class="span10 well">
+		<form action="<?php echo JRoute::_($this->formUrl);?>" method="post">
+			<div class="row-fluid">
+				<div class="span12">
+				</div>
+			</div>
+			<input type="hidden" name="task" value="">
+			<?php echo JHtmlForm::token();?>
+		</form>
+	</div>
+</div>

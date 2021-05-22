@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="comAddView" default="init" basedir="../../">
+
+    <property name="task" value="comAddViewsFromSQL"/>
+    <property name="builder" value="${project.basedir}/extension-gen/component/comBuilder.php"/>
+
+    <target name="init">
+        <input message="Component Name" propertyName="componentName"/>
+        <input message="Template" propertyName="tmpl" defaultValue="logical"/>
+        <property name="baseDir" value="${project.basedir}/component/${componentName}"/>
+        <property name="tmplDir" value="${project.basedir}/extension-gen/templates/component/${tmpl}"/>
+        <property name="manifest" value="${componentName}.xml"/>
+        <property name="adminDir" value="${baseDir}/administrator/components/com_${componentName}"/>
+
+
+        <phingcall target="createViews"/>
+    </target>
+
+    <target name="createViews">
+        <input message="Directory of SQL file" propertyName="sqlDir" defaultValue="${adminDir}/sql/updates/mysql"/>
+        <input message="File Name" propertyName="sqlFile" defaultValue="0.0.1"/>
+        <input message="Excluded Views" propertyName="excludedViews"/>
+
+        <input message="Formats" propertyName="formats" defaultValue="html,xml,csv"/>
+        <input message="Add Sidebar Link?" propertyName="addSidebar" validArgs="Y,N" defaultValue="Y"/>
+
+        <input message="Model Type : data, collection, record " propertyName="modelType" defaultValue="record" />
+        <input message="Create Form?" propertyName="createForm" validArgs="Y,N" defaultValue="Y"/>
+        <input message="Create Table?" propertyName="createTable" validArgs="Y,N" defaultValue="Y"/>
+        <input message="What part of the application" propertyName="app" validArgs="admin,site" defaultValue="admin"/>
+
+        <exec command="php ${builder} ${task} ${baseDir} ${tmplDir} ${componentName} ${sqlDir} ${sqlFile} ${formats} ${addSidebar} ${modelType} ${createForm} ${createTable} ${app} ${excludedViews}" outputProperty="messages"/>
+        <echo msg="${messages}"/>
+    </target>
+</project>

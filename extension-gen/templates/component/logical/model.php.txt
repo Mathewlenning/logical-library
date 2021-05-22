@@ -1,0 +1,50 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+use Logical\Registry\Registry;
+
+// No direct access
+defined('_JEXEC') or die;
+
+/**
+ * Class %ComponentName%Model%ModelName%
+ *
+ * @package  %ComponentName%
+ * @since    %version%
+ */
+class %ComponentName%Model%ModelName% extends Logical\Model\%modelType%Model
+{
+	/**
+	 * Method to attach filter object to the model
+	 */
+	public function prepareFilters()
+	{
+		return;
+	}
+
+	/**
+	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
+	 *
+	 * If you don't send a $query it will return a $query object with:
+	 *
+	 * $query->select('a.*');
+	 * $query->from($tableName.' AS a');
+	 *
+	 * @param   JDatabaseQuery  $query   Query object
+	 * @param   string          $alias   Table alias to use in the query
+	 * @param   array           $ignore  An optional array of fields to remove from the result.
+	 *
+	 * @return JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+	 */
+	protected function getListQuery(JDatabaseQuery $query = null, $alias = 'a', $ignore = array())
+	{
+		$query = parent::getListQuery($query, $alias, $ignore);
+
+		return $query;
+	}
+}

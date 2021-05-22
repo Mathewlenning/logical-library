@@ -1,0 +1,77 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+JHtml::_('behavior.keepalive');
+$document = JFactory::getDocument();
+$document->addStylesheet(JUri::root(true) . '/media/logical/css/admin_shiv.css', 'text/css');
+$document->addScript(JUri::root(true) .'/media/logical/js/logical.js');
+
+/** @var JForm $form */
+$form = $this->form;
+$fieldsets = $form->getFieldsets();
+$toolbar = $this->toolbar->render();
+
+/** @var Logical\Widget\WidgetRenderer $renderer */
+$renderer = $this->getWidgetRenderer();
+$tabSet = new Logical\Html\Tabs($renderer);
+$tab = JFactory::getApplication()->input->getCmd('tab', 'standard');
+
+foreach ( $fieldsets AS $fieldset)
+{
+	if ($fieldset->name == 'internal')
+	{
+		continue;
+	}
+
+	$this->currentFieldset = $fieldset;
+
+	$tabSet->addTab(
+		$fieldset->name,
+		JText::_($fieldset->label),
+		$this->loadTemplate('field'),
+		($tab == $fieldset->name)
+	);
+}
+?>
+<script>
+	jQuery(document).ready(function()
+	{
+		jQuery('a[data-toggle="tab"]').on('click', function (event)
+		{
+			var targ = logical.form.getTarget(event);
+			var form = targ.closest('form');
+
+			form.find('input[name="tab"]').val(targ.attr('href').substr(1));
+		});
+	});
+</script>
+
+<div class="row-fluid">
+	<div class="span12">
+		<form action="<?php echo JRoute::_($this->formUrl);?>" method="post">
+			<?php if (!is_null($toolbar)):?>
+			<div class="row-fluid">
+				<div class="span12">
+					<?php echo $toolbar;?>
+				</div>
+			</div>
+			<?php endif;?>
+			<div class="row-fluid">
+            	<div class="span12">
+            		<?php echo $tabSet->render();?>
+            	</div>
+            </div>
+			<input type="hidden" name="task" value="">
+			<input type="hidden" name="tab" value="<?php echo $tab;?>">
+    		<?php echo JHtmlForm::token();?>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * @author     Mathew Lenning <mathew.lenning@gmail.com>
+ * @authorUrl  http://mathewlenning.com
+ * @copyright  Copyright (C) 2015 Mathew Lenning. All rights reserved.
+ * @license    GNU General Public License version 2 or later; see LICENSE
+ */
+
+// No direct access
+defined('_JEXEC') or die;
+
+JLoader::registerPrefix('%ComponentName%', JPATH_SITE . '/components/com_%component_name%', true);
+JLoader::registerPrefix('%ComponentName%', JPATH_SITE . '/administrator/components/com_%component_name%');
+
+$app = JFactory::getApplication();
+
+// One Langauge file
+if ($app->isClient('site'))
+{
+	$lang = JFactory::getLanguage();
+	$langLoader = new \Logical\Language\Loader;
+	$langLoader->load($app, $lang, 'com_%component_name%');
+}
+
+$input = $app->input;
+$config = new Logical\Registry\Registry(array('default_view' => 'dashboard'));
+
+// Look Familiar?
+// The only difference is we are only dependent on what is in our component directory
+$controller = new %ComponentName%ControllerDispatcher($input, $app, $config);
+$controller->execute();
+$controller->redirect();
