@@ -1,4 +1,4 @@
-#What is this?
+## What is this?
 This library was designed to speed up the development of Joomla extensions.
 It includes a library and phing scripts to generate and package Joomla extensions.
 
